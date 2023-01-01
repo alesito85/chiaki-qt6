@@ -332,6 +332,7 @@ ChiakiControllerState Controller::GetState()
 	state.r2_state = (uint8_t)(SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_TRIGGERRIGHT) >> 7);
 	state.left_x = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTX);
 	state.left_y = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_LEFTY);
+	// The two vars below should be updated based on accel_data
 	state.right_x = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTX);
 	state.right_y = SDL_GameControllerGetAxis(controller, SDL_CONTROLLER_AXIS_RIGHTY);
 
@@ -362,6 +363,8 @@ ChiakiControllerState Controller::GetState()
 			accel_data[0], accel_data[1], accel_data[2],
 			microsec_since_epoch);
 
+		state.right_x = accel_data[0] * 32767;
+		state.right_y = accel_data[0] * 32767;
 		chiaki_orientation_tracker_apply_to_controller_state(&orient_tracker, &state);
 	}
 #endif

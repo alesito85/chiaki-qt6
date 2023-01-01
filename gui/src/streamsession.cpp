@@ -351,6 +351,8 @@ void StreamSession::SendFeedbackState()
 		// chiaki_controller_state_or(&state, &state, &controller_state);
 	}
 
+	// Set R if L2 is depressed
+
 	chiaki_controller_state_or(&state, &state, &keyboard_state);
 	chiaki_session_set_controller_state(&session, &state);
 }

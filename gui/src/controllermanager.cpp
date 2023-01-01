@@ -363,8 +363,10 @@ ChiakiControllerState Controller::GetState()
 			accel_data[0], accel_data[1], accel_data[2],
 			microsec_since_epoch);
 
-		state.right_x = accel_data[0] * 32767;
-		state.right_y = accel_data[0] * 32767;
+		if (state.l2_state != 0) {
+			state.right_x = accel_data[0] * 32767;
+			state.right_y = accel_data[1] * 32767;
+		}
 		chiaki_orientation_tracker_apply_to_controller_state(&orient_tracker, &state);
 	}
 #endif

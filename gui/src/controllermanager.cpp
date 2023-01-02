@@ -365,7 +365,7 @@ ChiakiControllerState Controller::GetState()
 
 		if (state.l2_state != 0) {
 			state.right_x = accel_data[0] * 32767 * -1 * 2;
-			state.right_y = accel_data[1] * 32767 * 2 * SDL_STANDARD_GRAVITY;
+			state.right_y = accel_data[1] * 32767 * 2;
 		}
 		chiaki_orientation_tracker_apply_to_controller_state(&orient_tracker, &state);
 	}

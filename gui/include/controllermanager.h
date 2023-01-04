@@ -31,12 +31,6 @@ class ControllerManager : public QObject
 		
 		void ControllerClosed(Controller *controller);
 
-		static int NumSamples;
-		static float gyroCalibrationX;
-		static float gyroCalibrationY;
-		static float gyroCalibrationZ;
-		static float accelMagnitude;
-
 	private slots:
 		void UpdateAvailableControllers();
 		void HandleEvents();
@@ -50,6 +44,12 @@ class ControllerManager : public QObject
 
 		QSet<int> GetAvailableControllers();
 		Controller *OpenController(int device_id);
+
+		static int NumSamples;
+		static float gyroCalibrationX;
+		static float gyroCalibrationY;
+		static float gyroCalibrationZ;
+		static float accelMagnitude;
 
 	signals:
 		void AvailableControllersUpdated();

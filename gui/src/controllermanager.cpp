@@ -381,9 +381,9 @@ ChiakiControllerState Controller::GetState()
 		}
 
 		float inverseSamples = 1.f / instnc->NumSamples;
-		gyro_data[0] = instnc->gyroCalibrationX * inverseSamples;
-		gyro_data[1] = instnc->gyroCalibrationY * inverseSamples;
-		gyro_data[2] = instnc->gyroCalibrationZ * inverseSamples;
+		gyro_data[0] -= instnc->gyroCalibrationX * inverseSamples;
+		gyro_data[1] -= instnc->gyroCalibrationY * inverseSamples;
+		gyro_data[2] -= instnc->gyroCalibrationZ * inverseSamples;
 		
 		chiaki_orientation_tracker_update(&orient_tracker,
 			gyro_data[0], gyro_data[1], gyro_data[2],

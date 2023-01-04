@@ -359,6 +359,23 @@ ChiakiControllerState Controller::GetState()
 		accel_data[0] *= recip_norm;
 		accel_data[1] *= recip_norm;
 		accel_data[2] *= recip_norm;
+
+		if (UINT64_MAX - gyro_data[0] < ControllerManager::gyroCalibrationX
+			&& UINT64_MAX - gyro_data[1] < ControllerManager::gyroCalibrationY
+			&& UINT64_MAX - gyro_data[2] < ControllerManager::gyroCalibrationZ
+			&& UINT64_MAX - recip_norm < ControllerManager::accelMagnitude)
+		{
+			ControllerManager::NumSamples++;
+			ControllerManager::gyroCalibrationX += gyro_data[0];
+			ControllerManager::gyroCalibrationY += gyro_data[1];
+			ControllerManager::gyroCalibrationZ += gyro_data[2];
+			ControllerManager::accelMagnitude += recip_norm;
+		}
+
+		float inverseSamples = 1.f / ControllerManager::NumSamples;
+		gyro_data[0] = ControllerManager::gyroCalibrationX * inverseSamples;
+		gyro_data[1] = ControllerManager::gyroCalibrationY * inverseSamples;
+		gyro_data[2] = ControllerManager::gyroCalibrationZ * inverseSamples;
 		
 		chiaki_orientation_tracker_update(&orient_tracker,
 			gyro_data[0], gyro_data[1], gyro_data[2],

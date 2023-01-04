@@ -36,6 +36,12 @@ class ControllerManager : public QObject
 		void HandleEvents();
 		void ControllerEvent(int device_id);
 
+		u_long NumSamples = 0;
+		float gyroCalibrationX = 0.f;
+		float gyroCalibrationY = 0.f;
+		float gyroCalibrationZ = 0.f;
+		float accelMagnitude = 0.f;
+
 	public:
 		static ControllerManager *GetInstance();
 

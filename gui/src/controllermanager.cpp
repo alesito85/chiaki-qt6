@@ -109,11 +109,11 @@ ControllerManager *ControllerManager::GetInstance()
 	if(!instance)
 		instance = new ControllerManager(qApp);
 
-	ControllerManager::NumSamples = 0;
-	ControllerManager::gyroCalibrationX = 0.f;
-	ControllerManager::gyroCalibrationY = 0.f;
-	ControllerManager::gyroCalibrationZ = 0.f;
-	ControllerManager::accelMagnitude = 0.f;
+	instance.NumSamples = 0;
+	instance.gyroCalibrationX = 0.f;
+	instance.gyroCalibrationY = 0.f;
+	instance.gyroCalibrationZ = 0.f;
+	instance.accelMagnitude = 0.f;
 
 	return instance;
 }
@@ -367,22 +367,23 @@ ChiakiControllerState Controller::GetState()
 		accel_data[1] *= recip_norm;
 		accel_data[2] *= recip_norm;
 
-		if (UINT64_MAX - gyro_data[0] < ControllerManager::gyroCalibrationX
-			&& UINT64_MAX - gyro_data[1] < ControllerManager::gyroCalibrationY
-			&& UINT64_MAX - gyro_data[2] < ControllerManager::gyroCalibrationZ
-			&& UINT64_MAX - recip_norm < ControllerManager::accelMagnitude)
+		ControllerManager *instnc = ControllerManager::GetInstance();
+		if (UINT64_MAX - gyro_data[0] < instnc->gyroCalibrationX
+			&& UINT64_MAX - gyro_data[1] < instnc->gyroCalibrationY
+			&& UINT64_MAX - gyro_data[2] < instnc->gyroCalibrationZ
+			&& UINT64_MAX - recip_norm < instnc->accelMagnitude)
 		{
-			ControllerManager::NumSamples++;
-			ControllerManager::gyroCalibrationX += gyro_data[0];
-			ControllerManager::gyroCalibrationY += gyro_data[1];
-			ControllerManager::gyroCalibrationZ += gyro_data[2];
-			ControllerManager::accelMagnitude += recip_norm;
+			instnc->NumSamples++;
+			instnc->gyroCalibrationX += gyro_data[0];
+			instnc->gyroCalibrationY += gyro_data[1];
+			instnc->gyroCalibrationZ += gyro_data[2];
+			instnc->accelMagnitude += recip_norm;
 		}
 
-		float inverseSamples = 1.f / ControllerManager::NumSamples;
-		gyro_data[0] = ControllerManager::gyroCalibrationX * inverseSamples;
-		gyro_data[1] = ControllerManager::gyroCalibrationY * inverseSamples;
-		gyro_data[2] = ControllerManager::gyroCalibrationZ * inverseSamples;
+		float inverseSamples = 1.f / instnc->NumSamples;
+		gyro_data[0] = instnc->gyroCalibrationX * inverseSamples;
+		gyro_data[1] = instnc->gyroCalibrationY * inverseSamples;
+		gyro_data[2] = instnc->gyroCalibrationZ * inverseSamples;
 		
 		chiaki_orientation_tracker_update(&orient_tracker,
 			gyro_data[0], gyro_data[1], gyro_data[2],

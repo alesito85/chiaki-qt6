@@ -132,6 +132,11 @@ ControllerManager::ControllerManager(QObject *parent)
 
 ControllerManager::~ControllerManager()
 {
+	ControllerManager::NumSamples = 0;
+	ControllerManager::gyroCalibrationX = 0.f;
+	ControllerManager::gyroCalibrationY = 0.f;
+	ControllerManager::gyroCalibrationZ = 0.f;
+	ControllerManager::accelMagnitude = 0.f;
 #ifdef CHIAKI_GUI_ENABLE_SDL_GAMECONTROLLER
 	SDL_Quit();
 #endif

@@ -109,11 +109,11 @@ ControllerManager *ControllerManager::GetInstance()
 	if(!instance)
 		instance = new ControllerManager(qApp);
 
-	instance.NumSamples = 0;
-	instance.gyroCalibrationX = 0.f;
-	instance.gyroCalibrationY = 0.f;
-	instance.gyroCalibrationZ = 0.f;
-	instance.accelMagnitude = 0.f;
+	instance->NumSamples = 0;
+	instance->gyroCalibrationX = 0.f;
+	instance->gyroCalibrationY = 0.f;
+	instance->gyroCalibrationZ = 0.f;
+	instance->accelMagnitude = 0.f;
 
 	return instance;
 }

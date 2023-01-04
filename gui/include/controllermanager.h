@@ -31,7 +31,7 @@ class ControllerManager : public QObject
 		
 		void ControllerClosed(Controller *controller);
 
-		int NumSamples;
+		static int NumSamples;
 		static float gyroCalibrationX;
 		static float gyroCalibrationY;
 		static float gyroCalibrationZ;

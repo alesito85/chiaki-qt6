@@ -31,11 +31,11 @@ class ControllerManager : public QObject
 		
 		void ControllerClosed(Controller *controller);
 
-		u_long NumSamples;
-		float gyroCalibrationX;
-		float gyroCalibrationY;
-		float gyroCalibrationZ;
-		float accelMagnitude;
+		int NumSamples;
+		static float gyroCalibrationX;
+		static float gyroCalibrationY;
+		static float gyroCalibrationZ;
+		static float accelMagnitude;
 
 	private slots:
 		void UpdateAvailableControllers();

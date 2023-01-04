@@ -366,10 +366,10 @@ ChiakiControllerState Controller::GetState()
 			microsec_since_epoch);
 
 		if (state.l2_state != 0) {
-			if (gyro_data[1] < -0.08f || gyro_data[1] > 0.08f) {
+			if (gyro_data[1] < -0.02f || gyro_data[1] > 0.02f) {
 				state.right_x = (gyro_data[1] < 0 ? MAX(gyro_data[1], -1.5f) : MIN(gyro_data[1], 1.5f)) * 32767 * -1;
 			}
-			if (gyro_data[0] < -0.08f || gyro_data[0] > 0.08f) {
+			if (gyro_data[0] < -0.02f || gyro_data[0] > 0.02f) {
 				state.right_y = (gyro_data[0] < 0 ? MAX(gyro_data[0], -1.5f) : MIN(gyro_data[0], 1.5f)) * 32767 * -1;
 			}
 		}

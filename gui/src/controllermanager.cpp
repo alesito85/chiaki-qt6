@@ -366,8 +366,12 @@ ChiakiControllerState Controller::GetState()
 			microsec_since_epoch);
 
 		if (state.l2_state != 0) {
-			state.right_x = (gyro_data[1] < 0 ? MAX(gyro_data[1], -1.5f) : MIN(gyro_data[1], 1.5f)) * 32767 * -1;
-			state.right_y = (gyro_data[0] < 0 ? MAX(gyro_data[0], -1.5f) : MIN(gyro_data[0], 1.5f)) * 32767 * -1;
+			if (gyro_data[1] < -0.8f || gyro_data[1] > 0.8f) {
+				state.right_x = (gyro_data[1] < 0 ? MAX(gyro_data[1], -1.5f) : MIN(gyro_data[1], 1.5f)) * 32767 * -1;
+			}
+			if (gyro_data[0] < -0.8f || gyro_data[0] > 0.8f) {
+				state.right_y = (gyro_data[0] < 0 ? MAX(gyro_data[0], -1.5f) : MIN(gyro_data[0], 1.5f)) * 32767 * -1;
+			}
 		}
 		chiaki_orientation_tracker_apply_to_controller_state(&orient_tracker, &state);
 	}

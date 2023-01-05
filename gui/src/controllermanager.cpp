@@ -7,7 +7,7 @@
 #include <QByteArray>
 #include <QTimer>
 #include <chrono>
-#include <log.h>
+#include <chiaki/log.h>
 #include <sessionlog.h>
 
 #ifdef CHIAKI_GUI_ENABLE_SDL_GAMECONTROLLER

@@ -7,6 +7,8 @@
 #include <QByteArray>
 #include <QTimer>
 #include <chrono>
+#include <log.h>
+#include <sessionlog.h>
 
 #ifdef CHIAKI_GUI_ENABLE_SDL_GAMECONTROLLER
 #include <SDL.h>
@@ -384,8 +386,7 @@ ChiakiControllerState Controller::GetState()
 		gyro_data[0] -= instnc->gyroCalibrationX * inverseSamples;
 		gyro_data[1] -= instnc->gyroCalibrationY * inverseSamples;
 		gyro_data[2] -= instnc->gyroCalibrationZ * inverseSamples;
-		
-		chiaki_orientation_tracker_update(&orient_tracker,
+		SessionLog::Log(CHIAKI_LOG_ERROR, "Test log output");
 			gyro_data[0], gyro_data[1], gyro_data[2],
 			accel_data[0], accel_data[1], accel_data[2],
 			microsec_since_epoch);

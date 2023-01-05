@@ -10,6 +10,7 @@
 #include <QSet>
 #include <QMap>
 #include <QString>
+#include <sessionlog.h>
 
 #ifdef CHIAKI_GUI_ENABLE_SDL_GAMECONTROLLER
 #include <SDL.h>
@@ -50,6 +51,7 @@ class ControllerManager : public QObject
 		float gyroCalibrationY;
 		float gyroCalibrationZ;
 		float accelMagnitude;
+
 
 	signals:
 		void AvailableControllersUpdated();
